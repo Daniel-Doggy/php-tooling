@@ -1,3 +1,6 @@
 .github/tests/gitinfo.json
 composer.phar
 /vendor/
+
+config/*config*
+!config/*sample.config*
