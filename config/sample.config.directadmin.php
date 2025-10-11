@@ -9,4 +9,8 @@
         // Repeat above array for each DirectAdmin server.
     );
 
+    $domains = array(
+        0 => "<git domain>",
+        // Repeat above array for each DirectAdmin server.
+    );
 ?>
