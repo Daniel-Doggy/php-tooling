@@ -27,15 +27,18 @@
     require(__DIR__ . "/../../config/config.directadmin.php");
     
     if(empty($argv) || empty($argv[1])){
-        echo "No branch name given as first argument";
+        echo "No repo name given as first argument.\n";
+        exit(1);
+    }
+
+    if(empty($argv[2])){
+        echo "No branch name given as second argument.\n";
         exit(1);
     }
 
     $directadmin = new DirectAdminAPI($directadmin_login);
 
-    $response2 = $directadmin->fetchGit($git_uuids);
-    $response1 = $directadmin->setGitBranch($git_uuids, $argv[1]);
-    $response3 = $directadmin->deployGit($git_uuids);
-
-    echo "The GIT banch '" . $argv[1] . "' is set and deployed.\n";
+    $response2 = $directadmin->fetchGit($domains, $argv[1]);
+    $response1 = $directadmin->setGitBranch($domains, $argv[1], $argv[2]);
+    $response3 = $directadmin->deployGit($domains, $argv[1]);
 ?>
