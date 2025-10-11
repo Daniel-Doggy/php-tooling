@@ -1,6 +1,5 @@
 <?php
-
-	/*
+    /*
     MIT License
 
     Copyright (c) 2025 Daniel-Doggy
@@ -24,9 +23,17 @@
     SOFTWARE.
     */
 
-    require(__DIR__ . "/../vendor/autoload.php");
-    require(__DIR__ . "/../modules/PerformanceChecker/performancechecker.php");
-	require(__DIR__ . "/../modules/GitVersion/gitversion.php");
-    require(__DIR__ . "/../modules/Authenticator/authenticator.php");
+    $directadmin_login = array(
+        0 => array(
+            "da_url" => "https://<da url>:2222",
+            "da_username" => "<username>",
+            "da_auth_key" => "<password/key>"
+        )
+        // Repeat above array for each DirectAdmin server.
+    );
 
+    $domains = array(
+        0 => "<git domain>"
+        // Repeat above array for each DirectAdmin server.
+    );
 ?>

@@ -1,6 +1,5 @@
 <?php
-
-	/*
+    /*
     MIT License
 
     Copyright (c) 2025 Daniel-Doggy
@@ -23,10 +22,23 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
+    
+    require(__DIR__ . "/directadmin-api.php");
+    require(__DIR__ . "/../../config/config.directadmin.php");
+    
+    if(empty($argv) || empty($argv[1])){
+        echo "No repo name given as first argument.\n";
+        exit(1);
+    }
 
-    require(__DIR__ . "/../vendor/autoload.php");
-    require(__DIR__ . "/../modules/PerformanceChecker/performancechecker.php");
-	require(__DIR__ . "/../modules/GitVersion/gitversion.php");
-    require(__DIR__ . "/../modules/Authenticator/authenticator.php");
+    if(empty($argv[2])){
+        echo "No branch name given as second argument.\n";
+        exit(1);
+    }
 
+    $directadmin = new DirectAdminAPI($directadmin_login);
+
+    $response2 = $directadmin->fetchGit($domains, $argv[1]);
+    $response1 = $directadmin->setGitBranch($domains, $argv[1], $argv[2]);
+    $response3 = $directadmin->deployGit($domains, $argv[1]);
 ?>
