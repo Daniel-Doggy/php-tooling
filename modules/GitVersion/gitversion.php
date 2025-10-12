@@ -108,7 +108,7 @@
 		 * @return string
 		 */
 		public function getVersion($hide_branchname = false){
-			return ($this->file_version == null ? "" : $this->file_version . " ") . $this->getShortHash() . ($hide_branchname ? "" : " (" . $this->git_branch . ")");
+			return ($this->file_version == null ? "" : $this->file_version . "-") . $this->getShortHash() . ($hide_branchname ? "" : " (" . $this->git_branch . ")");
 		}
 
 		/*
