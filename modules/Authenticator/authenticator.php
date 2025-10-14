@@ -89,8 +89,7 @@
          * Login via OpenID provider.
          * @return bool
          */
-        public function login(bool $remove_public_folder = false){
-            $this->openid_connect->setRedirectURL(str_replace("/public/", "/", $this->openid_connect->getRedirectURL()));
+        public function login(){
             if($this->authenticateOpenID()){
                 return true;
             }
