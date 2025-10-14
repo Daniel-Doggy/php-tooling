@@ -96,10 +96,6 @@
             return false;
         }
 
-        public function getRedirectURL(){
-            return $this->openid_connect->getRedirectURL();
-        }
-
         /*
          * Authenticate a user.
          * @return true if authentication is successfull | false if authentication failed.

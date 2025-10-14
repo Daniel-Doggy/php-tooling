@@ -135,7 +135,7 @@
                         continue;
                     }
 
-                    if((is_array($records["data"][$record_id]["branches"]) ? !array_search($branch, $records["data"][$record_id]["branches"]) : $records["data"][$record_id]["branches"] == $repo_name)){
+                    if((is_array($records["data"][$record_id]["branches"]) ? (array_search($branch, $records["data"][$record_id]["branches"]) === false) : $records["data"][$record_id]["branches"] != $repo_name)){
                         echo "Failed to find branch '" . $branch . "' for '" . $domains[$key] . "' in '" . $repo_name . "' from " . $url . "\n";
                         continue;
                     }

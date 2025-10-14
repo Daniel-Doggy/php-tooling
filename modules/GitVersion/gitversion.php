@@ -54,7 +54,7 @@
 			
 			$this->git_ref = implode("\n", array_slice(explode("\n", str_replace("ref: ", "", file_get_contents($git_loc . "/HEAD"))), 0, 1));
 			$this->git_branch = preg_replace('/^.*\/\s*/', '', $this->git_ref);
-			$this->git_hash = implode("\n", array_slice(explode("\n", file_get_contents($git_loc . "/" . $this->git_ref)), 0, 1));
+			$this->git_hash = (file_exists($git_loc . "/" . $this->git_ref) ? implode("\n", array_slice(explode("\n", file_get_contents($git_loc . "/" . $this->git_ref)), 0, 1)) : "0000000000000000000000000000000000000000");
 			
 			if($short_hash_length > strlen($this->git_hash)){
 				throw new Exception("short_hash_length cannot be larger then the hash itself.");
@@ -108,7 +108,7 @@
 		 * @return string
 		 */
 		public function getVersion($hide_branchname = false){
-			return ($this->file_version == null ? "" : $this->file_version . " ") . $this->getShortHash() . ($hide_branchname ? "" : " (" . $this->git_branch . ")");
+			return ($this->file_version == null ? "" : $this->file_version . "-") . $this->getShortHash() . ($hide_branchname ? "" : " (" . $this->git_branch . ")");
 		}
 
 		/*
