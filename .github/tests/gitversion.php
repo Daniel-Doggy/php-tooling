@@ -100,7 +100,7 @@
     echo "The file version matched between GitVersion and gitinfo.json.\n";
 
     echo "Check if the (file) version text matches between GitVersion and gitinfo.json.\n";
-    if($gitversion_fileversion->getVersion() != $github_runner_gitinfo["file"] . " " . substr($github_runner_gitinfo["hash"], 0, 7) . " (" . $github_runner_gitinfo["branch"] . ")"){
+    if($gitversion_fileversion->getVersion() != $github_runner_gitinfo["file"] . "-" . substr($github_runner_gitinfo["hash"], 0, 7) . " (" . $github_runner_gitinfo["branch"] . ")"){
         echo "The Git hash of GitVersion did not match the gitinfo.json hash!\n";
         echo "GitVersion: " . $gitversion_fileversion->getVersion() . "\n";
         echo "gitinfo.json: " . $github_runner_gitinfo["file"] . " " . substr($github_runner_gitinfo["hash"], 0, 7) . " (" . $github_runner_gitinfo["branch"] . ")\n";
@@ -109,7 +109,7 @@
     echo "Version (file) text matched between GitVersion and gitinfo.json.\n";
 
     echo "Check if the version text without branch name matches between GitVersion and gitinfo.json.\n";
-    if($gitversion_fileversion->getVersion(true) != $github_runner_gitinfo["file"] . " " . substr($github_runner_gitinfo["hash"], 0, 7)){
+    if($gitversion_fileversion->getVersion(true) != $github_runner_gitinfo["file"] . "-" . substr($github_runner_gitinfo["hash"], 0, 7)){
         echo "The Git hash of GitVersion did not match the gitinfo.json hash!\n";
         echo "GitVersion: " . $gitversion_fileversion->getVersion() . "\n";
         echo "gitinfo.json: " . $github_runner_gitinfo["file"] . " " . substr($github_runner_gitinfo["hash"], 0, 7) . "\n";
