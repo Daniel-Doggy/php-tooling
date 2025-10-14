@@ -91,6 +91,8 @@
          */
         public function login(bool $remove_public_folder = false){
             if($remove_public_folder){
+                echo str_replace("/public/", "/", $this->openid_connect->getRedirectURL());
+                die();
                 $this->openid_connect->setRedirectURL(str_replace("/public/", "/", $this->openid_connect->getRedirectURL()));
             }
 
