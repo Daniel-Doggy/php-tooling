@@ -285,7 +285,7 @@
          * @return string|null
          */
         public function getRole(){
-            if($stmt = $this->conn->prepare("SELECT `user_role`.`name` FROM `users` LEFT JOIN `roles` `user_role` on `users`.`role` = `user_role`.`id` WHERE `users`.`uuid` = ?")){
+            if($stmt = $this->conn->prepare("SELECT `user_role`.`name` FROM `users` LEFT JOIN `roles` `user_role` on `users`.`role_id` = `user_role`.`id` WHERE `users`.`uuid` = ?")){
 				$stmt->bind_param("s", $this->user_uuid);
                 if(!$stmt->execute()){
                     return false;
@@ -336,6 +336,23 @@
             } else {
                 setcookie("refresh_token", "", ['expires' => time() - 1800, 'path' => '/', 'domain' => $this->cookiedomain, 'secure' => ($this->cookiedomain == "localhost" || str_ends_with($this->cookiedomain, ".local") ? false : true), 'httponly' => true, 'samesite' => 'Strict']);
             }
+        }
+
+        public function hasPermission(string $permission) {
+
+            if($stmt = $this->conn->prepare("SELECT CASE WHEN (SELECT permissions.id FROM `roles_permissions` LEFT JOIN `permissions` on `roles_permissions`.`permission_id` = `permissions`.`id` LEFT JOIN `roles` on `roles_permissions`.`role_id` = `roles`.`id` WHERE (SELECT role_id FROM users WHERE uuid = ? ) = roles_permissions.role_id AND permissions.permission = ?) IS NOT NULL THEN 1 ELSE 0 END AS `has_permission`")){
+                $stmt->bind_param("ss", $this->user_uuid, $permission);
+                if(!$stmt->execute()){
+                    return false;
+                }
+                $stmt->bind_result($has_permission);
+                $stmt->fetch();
+                $stmt->close();
+                unset($stmt);
+                return boolval($has_permission);
+            }
+            unset($stmt);
+            return false;
         }
     }
 
